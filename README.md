@@ -38,6 +38,30 @@ Once we have a best model trained, we will deploy it into a web Endpoint and wil
 
 As we will later see, AutoML can significantly reduce the effort invested by Machine Learning Engineers to find fitting models. In our case, AutoML found a better model than HyperDrive with our own algorithm.
 
+## Introduction to Azure Machine Learning
+Azure Machine Learning (ML) is a fully managed service from the Microsoft Azure cloud. It includes a wide variety to tools to simplify the ML Operations (MLOps):
+- Experiments: Here we can find the different runs and child-runs organized in Experiments
+- Notebooks: Similar to Jupyter Notebooks
+- Designer: A graphical UI to connect boxes with different steps of the ML pipeline
+- Compute: Compute Instances for Notebooks, Compute Clusters for training, Inference Clusters and Attached Compute can be managed from this section
+- Models: Azure ML allows you to keep a Model registry with metadata related to each model
+- Endpoints: This is the easiest way to deploy a REST API with the model of your choice to do inferences
+- Datasets: We can load datasets to Azure ML via different methods, for example, uploading a file
+- Datastores: This makes logical references to DataBases and other sources of data
+
+Part of the Azure ML is the Python SDK. This includes very interesting features to abstract some of the most complex operations of Machine Learning Engineers. Particularly useful are AutoML and HyperDrive.
+
+### Introduction to AutoML
+
+During the last decade, hundreds of thousands of hours of very skilled (and expensive) Machine Learning Engineers have been employed in fine tuning the model search for ML problems. This has been mainly done through trial and error. However, during the last couple of years, a tendency to automate this process has emerged with the name of Automated Machine Learning.
+
+AutoML in Azure ML is a tool (both programmatic through the Python SDK and with the UI in the Azure ML Web portal) which allows to automate the search for the right algorithm for a defined problem and dataset. AutoML supports classification, regression and forecast problems. From the defined metric as being the target to optimize, AutoML finds the best combination of algorithm and hyperparameters without additional effort.
+
+### Introduction to HyperDrive
+Hyperparameters are those parameters which are manually configured (selected) by the Machine Learning Enginner, instead of learned by the Machine Learning algorithm. This includes the number of epochs, the learning rate, regularization factors and many others, depending on the algorithm selected. 
+
+HyperDrive is the tool from Azure ML to facilitate the HyperParameter Optimization (HPO). Different options are provided, including the Search Space (Sampling), Early Termination policy and others.
+
 ### Access
 We are adding the dataset to AzureML by importing the CSV file, which we obtained from the original source. We need to select during the importing step "tabular" and to use the first row as the columns name. The rest of the schema details are correctly detected by Azure ML automatically.
 
@@ -64,7 +88,7 @@ The Stack Ensemble was the run 56, which we can see in the next picture in more 
 
 ![Dataset imported in Azure ML](images/AutoML_run.png)
 
-This was also indicated by the RunDetails widget, as it was the last one
+We can also see in the RunDetails widget the evolution of the metrics for each of the runs
 
 ![Dataset imported in Azure ML](images/AutoML_rundetails.png)
 
@@ -100,9 +124,9 @@ The algorithm selected is Logistic regression, as this problem is a classificati
 
 ### Results
 
-The result of the Hyperparameter search with Hyperdrive resulted in a model with an accuracy of 78.333333%. We can see this value in the next screenshot, as part of the Run Details widget
+The result of the Hyperparameter search with Hyperdrive resulted in a model with an accuracy of 78.333333%. We can see in the next picture the RunDetails widget while the training was ongoing. This tool allows us to see the evolution of the different algorithms and runs.
 
-![Dataset imported in Azure ML](images/Hyperdrive_best_accuracy.png)
+![Dataset imported in Azure ML](images/Hyperdrive_rundetails.png)
 
 The best model's parameters can be seen in the next picture, corresponding to a regularization strength of 1.99876 and 80 as the maximum number of iterations to converge.
 
