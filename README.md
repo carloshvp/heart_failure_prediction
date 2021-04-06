@@ -36,19 +36,53 @@ The target variable is DEATH_EVENT.
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration I used for this experiment
 
+As part of the AutoML configuration, we are going to select:
+
+- Problem type: Classification
+- Experiment timeout: 20 minutes
+- Maximum concurrent iterations: 4
+- Primary metric: AUC weighted. This has been selected as we have seen that the dataset is imbalanced (203 cases in one class, versus 96 in the other class)
+- k value for k-fold Validation: 5. We split the data in train-test with 80-20 proportion, which combined with 5 cross-validations, we cover the whole dataset
+- Early stopping: enabled
+
 ### Results
 *TODO*: What are the results I got with my automated ML model? What were the parameters of the model? How could I have improved it?
 
 *TODO* Remember to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
-## Hyperparameter Tuning
-*TODO*: What kind of model did I choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
+SCREENSHOT OF RUNDETAILS
 
+
+## Hyperparameter Tuning
+
+For the Hyperdrive configuration we are selecting:
+
+- Algorithm: Logistic regression with SKLearn
+- Sampling method: random
+- Hyperparameters to optimize: Regularization strength (C) and maximum number of iterations to converge (max_iter)
+- Regularization strength (C): continuous range from 0.1 to 1.0 (lower values make stronger regularization)
+- Maximum number of iterations to converge (max_iter): fixed values 50, 80, 100, 120 and 150
+- Early termination policy: Bandit policy with slack factor of 0.1, evaluation interval of 3 and delay of evaluation of 3
+- Metric to optimize: Accuracy
+- Maximum total runs: 100
+
+As we can see, the algorithm selected is Logistic regression, as the problem is a regression and Logistic regression, though simple, may do the job correctly in the relationships between the features and the output are lineal.
 
 ### Results
 *TODO*: What are the results I got with my model? What were the parameters of the model? How could I have improved it?
+The result of the Hyperparameter search with Hyperdrive resulted in an accuracy of 0.78333333.
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+
+From the 2 hyperparameters that we are optimizing, these are the found values by Hyperdrive:
+- Regularization strength: 0.7052588371678538
+- Maximum number of iterations to converve: 80
+
+The Maximum number of iterations to converge values were sampled at will (choice), and could be improved if the value is set for the search as a range, where Hyperdrive has a wider search space.
+
+PICTURE OF RUNDETAILS
+PICTURE OF BEST MODEL
+
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
