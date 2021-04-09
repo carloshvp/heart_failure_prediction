@@ -164,4 +164,4 @@ When we run the script to trigger the inference, we get the right results
 
 ## Screen Recording
 
-In the following link we can see a small demo of the Endpoint delivering inferences for the AutoML model as explained above: https://www.youtube.com/watch?v=7htsE7pKM7M
+In the following link we can see a small demo of the Endpoint delivering inferences for the AutoML model as explained above. We are using in this case 2 examples from the dataset with different values as output (death and no death). The response from the Endpoint is correct: https://www.youtube.com/watch?v=7htsE7pKM7M
